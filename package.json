@@ -1,0 +1,25 @@
+{
+  "name": "datetime-helper",
+  "version": "0.0.1",
+  "description": "datetime to unix-time, datetime add, datetime diff, datetime formatter...",
+  "main": "index.js",
+  "keywords": [
+    "date",
+    "time",
+    "date format",
+    "datetime",
+    "datetime add",
+    "datetime diff",
+    "datetime format"
+  ],
+  "author": "jkin.feng",
+  "license": "MIT",
+  "homepage": "https://github.com/jkinfeng/datetime-helper.git#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jkinfeng/datetime-helper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jkinfeng/datetime-helper/issues"
+  }
+}
