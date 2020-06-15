@@ -75,17 +75,26 @@ Date.prototype.add = function ($days) {
 
 /**
  * Time difference return an object
- * {approximately days, day, hour, min, sec}
+ * {past Or Future pastOrFuture, approximately days, day, hour, min, sec}
  * Example: new Date().diff(new Date("1970-1-1"))
+ * fix bugs: when the date diff is negative integer, then take absolute value
+ * add var: pastOrFuture return boolean, when past is true, when future is false;
  */
 Date.prototype.diff = function ($date) {
-    const diffValue = this.getUnixTimeSec() - $date.getUnixTimeSec();
+    let diffValue = this.getUnixTimeSec() - $date.getUnixTimeSec();
+    let pastOrFuture = true;
+    if (diffValue === 0) {
+        return {pastOrFuture: false, days: 0, day: 0, hour: 0, min: 0, sec: 0}
+    } else if (diffValue < 0) {
+        pastOrFuture = false;
+        diffValue = Math.abs(diffValue);
+    }
     const days = (diffValue / 86400).toFixed(2);
     const day = diffValue >= 86400 ? parseInt(diffValue / 86400) : 0;
     const hour = diffValue % 86400 / 3600 >= 1 ? parseInt(diffValue % 86400 / 3600) : 0;
     const min = diffValue % 86400 % 3600 / 60 >= 1 ? parseInt(diffValue % 86400 % 3600 / 60) : 0;
     const sec = diffValue % 86400 % 3600 % 60;
-    return {days, day, hour, min, sec};
+    return {pastOrFuture, days, day, hour, min, sec};
 };
 
 /**

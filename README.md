@@ -1,5 +1,21 @@
 # Datetime Helper
 
+### fix bugs
+```
+Date.prototype.diff
+Example: new Date().diff(new Date("2021-1-1"));
+when the date diff is negative integer, then take absolute value
+return an object
+{
+    pastOrFuture: true(represents the past) or false(represents the future)
+    days: about days apart, 
+    day: day apart, 
+    hour: hour apart, 
+    min: min apart, 
+    sec: sec apart
+}
+```
+
 ## installation
 ```
 npm i datetime-helper
@@ -79,7 +95,7 @@ new Date().format('MM,DD YYYY');
 ```
 
 ## Version
-0.0.1
+0.0.3
 
 ## Copyright
 (C) 2020 Jkin.Feng
