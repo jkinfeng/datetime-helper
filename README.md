@@ -16,27 +16,9 @@ return an object
 }
 ```
 
-## installation
-```
-npm i datetime-helper
-```
-
 ## Usage
 ```
 require('datetime-helper');
-```
-
-### Date To Unix time
-```
-// return integer
-const date = new Date().;
-date.getUnixTimeSec();
-```
-
-### Number To Unix time
-```
-// return integer
-Date.now().getUnixTimeSec();
 ```
 
 ### Number To Date
@@ -45,24 +27,6 @@ Date.now().getUnixTimeSec();
 (1591200000).getDatetime();
 ```
 
-### String To Unix time
-```
-// Datetime of string type to UNIX time seconds
-// Note: When time is already of string type and the date must be in program format
-//       The value of the given number rounded to the nearest integer.
-// Program format:
-//       Thu Jan 01 1970 08:00:00 GMT+0800 (GMT+08:00)
-//       January 1, 1970 00:00:00 GMT
-//       01 Jan 1970 00:00:00 GMT
-//       1970-01-01T08:00:00.000
-//       1970-01-01T00:00:00.000Z
-//       01-01-1970 08:00:00.000
-//       01-01-1970 00:00:00.000Z
-//       ...
-// return integer
-
-"1970-01-01T08:00:00Z".getUnixTimeSec();
-```
  
 ### Zero hour of the date
 ```
@@ -94,11 +58,77 @@ new Date().format('MM,DD YYYY');
 ......
 ```
 
-## Version
-0.0.3
 
-## Copyright
-(C) 2020 Jkin.Feng
 
-## Licensed
-MIT
+# [@jkinfeng/datetime-helper](https://github.com/jkinfeng/datetime-helper)
+> Extended methods for JavaScript Date Object & Number Object & String Object with dates & times
+
+[![NPM version](https://img.shields.io/npm/v/datetime-helper.svg?style=flat)](https://github.com/jkinfeng/datetime-helper) 
+[![NPM Downloads](https://img.shields.io/npm/dm/datetime-helper.svg?style=flat)](https://github.com/jkinfeng/datetime-helper) 
+[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/jkinfeng/datetime-helper/blob/HEAD/LICENSE)
+
+>JavaScript Date objects represent a single moment in time in a platform-independent format.<br>
+Date objects contain a Number that represents milliseconds since 1 January 1970 UTC.<br>
+The getTime() method returns the number of milliseconds since the Unix Epoch.<br>
+JavaScript uses milliseconds as the unit of measurement, whereas Unix Time is in seconds.<br>
+getTime() always uses UTC for time representation.<br>
+For example, a client browser in one timezone,<br>
+getTime() will be the same as a client browser in any other timezone.
+
+## Installation
+
+```
+npm i datetime-helper
+```
+
+## Basic usage:
+```javascript
+require('datetime-helper');
+```
+
+## API Reference
+
+### Syntax
+**dateObj.getUnixTimeSec()**
+  > The getUnixTimeSec() method returns the number of seconds since the Unix Epoch.
+  - Example: new Date().getUnixTimeSec();
+```
+  result numbers like this: 1592494318
+```
+**numberObj.getUnixTimeSec()**
+  > The getUnixTimeSec() method returns the number of seconds since the Unix Epoch.
+  - Example: (1592494318215).getUnixTimeSec();
+```
+  result numbers like this: 1592494318
+```
+**stringObj.getUnixTimeSec()**
+  > A string in RFC2822 or ISO 8601 date format, the getUnixTimeSec() method returns the number of seconds since the Unix Epoch.
+  - Example:
+    - "1592494318215".getUnixTimeSec();
+    - "January 1, 1970 00:00:00".getUnixTimeSec();
+    - "1970-01-01T00:00:00.000Z".getUnixTimeSec();
+```
+  result numbers like this: 1592494318
+```
+
+
+- dateObj.getUnixTimeSec()
+  > The getUnixTimeSec() method returns the number of seconds since the Unix Epoch.
+- dateObj.getUnixTimeSec()
+  > The getUnixTimeSec() method returns the number of seconds since the Unix Epoch.
+  
+**dateObj.format()**
+  > The getUnixTimeSec() method returns the number of seconds since the Unix Epoch.
+
+
+## Contributing
+
+Please submit all issues and pull requests to the [jkinfeng/datetime-helper](https://github.com/jkinfeng/datetime-helper) repository!
+
+## Support
+
+If you have any problem or suggestion please open an issue [here](https://github.com/jkinfeng/datetime-helper/issues).
+
+### License
+
+[MIT](LICENSE)
