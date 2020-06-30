@@ -3,8 +3,6 @@
 (function ($global) {
     const __dateTime = {};
 
-    // __dateTime.timeZone = Date.getTimezoneOffset();
-
     __dateTime.getUnixTimeSec = ($dateTime, $ms = false) => {
         if ('object' === typeof $dateTime && $dateTime instanceof Date) {
             return Math.round($dateTime.getTime() / 1000);
@@ -22,7 +20,7 @@
             }
         }
 
-        return "Invalid Date";
+        return 'Invalid Date';
     };
 
     /**
@@ -48,7 +46,7 @@
         }
 
         if ('Invalid Date' === $dateTime.toString()) {
-            return "Invalid Date";
+            return 'Invalid Date';
         }
 
         __thisDateTime.setHours(0);
@@ -57,6 +55,65 @@
         __thisDateTime.setMilliseconds(0);
 
         return __thisDateTime;
+    };
+
+    /**
+     * Zero hour of the date
+     */
+    __dateTime.dateAdd = ($date, $days) => {
+        $date.setDate($date.getDate() + $days);
+        return $date;
+    };
+
+    /**
+     * Zero hour of the date
+     */
+    __dateTime.dateDiff = ($start_date, $end_date) => {
+        const __one_day = 86400, __one_hour = 3600, __one_min = 60;
+
+        const __start_date = __dateTime.getUnixTimeSec($start_date);
+
+        if ('Invalid Date' === __start_date) {
+            return 'Invalid Start Date';
+        }
+
+        const __end_date = __dateTime.getUnixTimeSec($end_date);
+
+        if ('Invalid Date' === __end_date) {
+            return 'Invalid End Date';
+        }
+
+        const __time_value = __start_date - __end_date;
+
+
+        return {
+            pf: true,
+            days: true,
+            day: true,
+            hour: true,
+            min: true,
+            sec: true,
+        };
+
+
+
+        let diffValue = __dateTime.getUnixTimeSec($start_date) - __dateTime.getUnixTimeSec($end_date);
+        let pastOrFuture = true;
+        if (diffValue === 0) {
+            return {pastOrFuture: false, days: 0, day: 0, hour: 0, min: 0, sec: 0}
+        } else if (diffValue < 0) {
+            pastOrFuture = false;
+            diffValue = Math.abs(diffValue);
+        }
+        const days = (diffValue / 86400).toFixed(2);
+        const day = diffValue >= 86400 ? parseInt(diffValue / 86400) : 0;
+        const hour = diffValue % 86400 / 3600 >= 1 ? parseInt(diffValue % 86400 / 3600) : 0;
+        const min = diffValue % 86400 % 3600 / 60 >= 1 ? parseInt(diffValue % 86400 % 3600 / 60) : 0;
+        const sec = diffValue % 86400 % 3600 % 60;
+        return {pastOrFuture, days, day, hour, min, sec};
+
+
+        return $date;
     };
 
     /**
@@ -104,38 +161,3 @@
         $global.__DateTime = __dateTime;
     }
 })(this);
-
-
-/**
- * Date add return a date
- * Example: new Date().add(1)
- */
-Date.prototype.add = function ($days) {
-    this.setDate(this.getDate() + $days);
-    return this;
-};
-
-/**
- * Time difference return an object
- * {past Or Future pastOrFuture, approximately days, day, hour, min, sec}
- * Example: new Date().diff(new Date("1970-1-1"))
- * fix bugs: when the date diff is negative integer, then take absolute value
- * add var: pastOrFuture return boolean, when past is true, when future is false;
- */
-Date.prototype.diff = function ($date) {
-    let diffValue = this.getUnixTimeSec() - $date.getUnixTimeSec();
-    let pastOrFuture = true;
-    if (diffValue === 0) {
-        return {pastOrFuture: false, days: 0, day: 0, hour: 0, min: 0, sec: 0}
-    } else if (diffValue < 0) {
-        pastOrFuture = false;
-        diffValue = Math.abs(diffValue);
-    }
-    const days = (diffValue / 86400).toFixed(2);
-    const day = diffValue >= 86400 ? parseInt(diffValue / 86400) : 0;
-    const hour = diffValue % 86400 / 3600 >= 1 ? parseInt(diffValue % 86400 / 3600) : 0;
-    const min = diffValue % 86400 % 3600 / 60 >= 1 ? parseInt(diffValue % 86400 % 3600 / 60) : 0;
-    const sec = diffValue % 86400 % 3600 % 60;
-    return {pastOrFuture, days, day, hour, min, sec};
-};
-

@@ -73,7 +73,10 @@ The getTime() method returns the number of milliseconds since the Unix Epoch.<br
 JavaScript uses milliseconds as the unit of measurement, whereas Unix Time is in seconds.<br>
 getTime() always uses UTC for time representation.<br>
 For example, a client browser in one timezone,<br>
-getTime() will be the same as a client browser in any other timezone.
+getTime() will be the same as a client browser in any other timezone.<br>
+So use the dateObj.getUnixTimeSec() uniform standard in seconds<br>
+save the time(integer number) to database or any storage<br>
+You don't need to think about timezone
 
 ## Installation
 
@@ -83,7 +86,7 @@ npm i datetime-helper
 
 ## Basic usage:
 ```javascript
-require('datetime-helper');
+const dth = require('datetime-helper');
 ```
 
 ## API Reference
@@ -91,7 +94,7 @@ require('datetime-helper');
 ### Syntax
 **dateObj.getUnixTimeSec()**
   > The getUnixTimeSec() method returns the number of seconds since the Unix Epoch.
-  - Example: new Date().getUnixTimeSec();
+  - Example: dth.getUnixTimeSec();
 ```
   result numbers like this: 1592494318
 ```
