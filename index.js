@@ -16,7 +16,9 @@
             if (!isNaN(Number($dateTime))) {
                 return $ms ? Math.round(Number($dateTime) / 1000) : Number($dateTime);
             } else {
-                return Math.round(new Date($dateTime).getTime() / 1000);
+                // $dateTime is UTC
+                const __tmpVar = Math.round(new Date($dateTime).getTime() / 1000);
+                return isNaN(__tmpVar) ? 'Invalid Date' : __tmpVar;
             }
         }
 
@@ -83,37 +85,24 @@
             return 'Invalid End Date';
         }
 
-        const __time_value = __start_date - __end_date;
+        let __time_value = __start_date - __end_date;
 
+        let {pof, val, days, day, hour, min, sec} = {pof: true, val: 0, days: 0, day: 0, hour: 0, min: 0, sec: 0};
 
-        return {
-            pf: true,
-            days: true,
-            day: true,
-            hour: true,
-            min: true,
-            sec: true,
-        };
+        pof = __time_value <= 0;
+        val = Math.abs(__time_value);
 
+        let __days = val / __one_day,
+            __hour = val % __one_day / __one_hour,
+            __min = val % __one_day % __one_hour / __one_min;
 
+        days = __days.toFixed(2);
+        day = __days >= 1 ? parseInt(__days) : 0;
+        hour = __hour >= 1 ? parseInt(__hour) : 0;
+        min = __min >= 1 ? parseInt(__min) : 0;
+        sec = val % __one_day % __one_hour % __one_min;
 
-        let diffValue = __dateTime.getUnixTimeSec($start_date) - __dateTime.getUnixTimeSec($end_date);
-        let pastOrFuture = true;
-        if (diffValue === 0) {
-            return {pastOrFuture: false, days: 0, day: 0, hour: 0, min: 0, sec: 0}
-        } else if (diffValue < 0) {
-            pastOrFuture = false;
-            diffValue = Math.abs(diffValue);
-        }
-        const days = (diffValue / 86400).toFixed(2);
-        const day = diffValue >= 86400 ? parseInt(diffValue / 86400) : 0;
-        const hour = diffValue % 86400 / 3600 >= 1 ? parseInt(diffValue % 86400 / 3600) : 0;
-        const min = diffValue % 86400 % 3600 / 60 >= 1 ? parseInt(diffValue % 86400 % 3600 / 60) : 0;
-        const sec = diffValue % 86400 % 3600 % 60;
-        return {pastOrFuture, days, day, hour, min, sec};
-
-
-        return $date;
+        return {pof, val, days, day, hour, min, sec};
     };
 
     /**
