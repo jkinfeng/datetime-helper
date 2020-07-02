@@ -1,6 +1,5 @@
 # [@jkinfeng/datetime-helper](https://github.com/jkinfeng/datetime-helper)
 > Datetime helper for JavaScript<br>
-v1.0 Code rewriting
 
 [![NPM version](https://img.shields.io/npm/v/datetime-helper.svg?style=flat)](https://github.com/jkinfeng/datetime-helper) 
 [![NPM Downloads](https://img.shields.io/npm/dm/datetime-helper.svg?style=flat)](https://github.com/jkinfeng/datetime-helper) 
@@ -86,7 +85,7 @@ dth.getDateZeroTime('1970-01-01T00:00:00.000Z');
 | Param | Type | Default Value | Description |
 | --- | --- | --- | --- |
 | <$date> | <code>Date Object</code> |  |  |
-| <$days> | <code>integer number</code> |  |  |
+| <$days> | <code>Integer</code> |  |  |
 
 > Example:
 ```javascript
@@ -97,46 +96,54 @@ dth.dateAdd(new Date(), -100);
 <br>
 
 **dth.dateDiff($start_date, $end_date)**
-> The getUnixTimeSec() method returns the number of seconds since the Unix Epoch.
+> The dateDiff() method returns an Object of JavaScript.<br>
+  when 'Invalid Date' then returns 'Invalid Start Date' or 'Invalid End Date'
   
 | Param | Type | Default Value | Description |
 | --- | --- | --- | --- |
 | <$start_date> | <code>Object or String or Number</code> |  | Date Object or A string of RFC2822 or ISO 8601 date or A Number |
-| <$end_date> | <code>Boolean</code> | false | true: in millisecond<br><br>false: in second |
+| <$end_date> | <code>Object or String or Number</code> |  | Date Object or A string of RFC2822 or ISO 8601 date or A Number |
+
+> Return an Object
+```javascript
+// {
+//    pof: boolean,  // pass or future, 
+//                      false: $start_date >= $end_date,
+//                      true $start_date < $end_date
+//    val: integer (in sec), // the number of seconds between two date
+//    days: string(float.toFix(2)),  // about how many days
+//    day: integer, // specific days
+//    hour: integer,  // specific hour
+//    min: integer,  // specific min
+//    sec: integer  // specific sec
+// }
+```
 
 > Example:
 ```javascript
 const dth = require('datetime-helper');
-dth.getDateZeroTime(new Date());
-dth.getDateZeroTime(1592494318);
-dth.getDateZeroTime(1592494318856, true);
-dth.getDateZeroTime(Date.now(), true);
-dth.getDateZeroTime('1592494318');
-dth.getDateZeroTime('1592494318856', true);
-dth.getDateZeroTime('1970-01-01');  // A string in RFC2822 or ISO 8601 date format
-dth.getDateZeroTime('1970-01-01T00:00:00.000Z');
+dth.dateDiff(new Date('1970-01-01'), new Date('1971-01-01'));
+dth.dateDiff(Date.now() / 1000, new Date('1971-01-01'));
+dth.dateDiff(1592494318, 1602494318);
+dth.dateDiff('1592494318', '1582494318');
 ```
 <br>
 
 **dth.format($date, $pattern = 'YYYY-MM-DD HH:mm:ss')**
-> The getUnixTimeSec() method returns the number of seconds since the Unix Epoch.
+> The format() method return format a Date instance to string.
   
 | Param | Type | Default Value | Description |
 | --- | --- | --- | --- |
-| <$dateTime> | <code>Object or String or Number</code> |  | Date Object or A string of RFC2822 or ISO 8601 date or A Number |
-| [$ms] | <code>Boolean</code> | false | true: in millisecond<br><br>false: in second |
+| <$date> | <code>Date Object</code> |  |  |
+| [$pattern] | <code>String</code> | YYYY-MM-DD HH:mm:ss | YYYY: full year<br>YY: year<br>MM: month<br>DD: day<br>HH: hour<br>mm: min<br>ss: sec<br>ms: millisecond  |
 
 > Example:
 ```javascript
 const dth = require('datetime-helper');
-dth.getDateZeroTime(new Date());
-dth.getDateZeroTime(1592494318);
-dth.getDateZeroTime(1592494318856, true);
-dth.getDateZeroTime(Date.now(), true);
-dth.getDateZeroTime('1592494318');
-dth.getDateZeroTime('1592494318856', true);
-dth.getDateZeroTime('1970-01-01');  // A string in RFC2822 or ISO 8601 date format
-dth.getDateZeroTime('1970-01-01T00:00:00.000Z');
+dth.format(new Date());
+dth.format(new Date(), 'YYYY/MM/DD HH/mm/ss/ms');
+dth.format(new Date(), 'YYYY年MM年DD日HH小时mm分ss秒ms毫秒');
+dth.format(new Date(), 'MM @ DD @ YYYY @ what the fun~~ HH ~~ mm ~~ ss ~~ ms');
 ```
 <br>
 

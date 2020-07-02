@@ -16,7 +16,6 @@
             if (!isNaN(Number($dateTime))) {
                 return $ms ? Math.round(Number($dateTime) / 1000) : Number($dateTime);
             } else {
-                // $dateTime is UTC
                 const __tmpVar = Math.round(new Date($dateTime).getTime() / 1000);
                 return isNaN(__tmpVar) ? 'Invalid Date' : __tmpVar;
             }
@@ -25,9 +24,6 @@
         return 'Invalid Date';
     };
 
-    /**
-     * Zero hour of the date
-     */
     __dateTime.getDateZeroTime = ($dateTime, $ms = false) => {
         let __thisDateTime;
 
@@ -59,17 +55,11 @@
         return __thisDateTime;
     };
 
-    /**
-     * Zero hour of the date
-     */
     __dateTime.dateAdd = ($date, $days) => {
         $date.setDate($date.getDate() + $days);
         return $date;
     };
 
-    /**
-     * Zero hour of the date
-     */
     __dateTime.dateDiff = ($start_date, $end_date) => {
         const __one_day = 86400, __one_hour = 3600, __one_min = 60;
 
@@ -89,10 +79,10 @@
 
         let {pof, val, days, day, hour, min, sec} = {pof: true, val: 0, days: 0, day: 0, hour: 0, min: 0, sec: 0};
 
-        pof = __time_value <= 0;
+        pof = __time_value < 0;
         val = Math.abs(__time_value);
 
-        let __days = val / __one_day,
+        const __days = val / __one_day,
             __hour = val % __one_day / __one_hour,
             __min = val % __one_day % __one_hour / __one_min;
 
@@ -105,9 +95,6 @@
         return {pof, val, days, day, hour, min, sec};
     };
 
-    /**
-     * Date formatter
-     */
     __dateTime.format = ($date, $pattern = 'YYYY-MM-DD HH:mm:ss') => {
         const functionCall = {
             YYYY: ['getFullYear', 4],
